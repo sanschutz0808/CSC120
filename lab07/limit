@@ -1,0 +1,50 @@
+import java.util.*;
+import java.io.*;
+
+public class Limit
+{
+    public static void main(String[] args) throws FileNotFoundException
+    {
+        //recieve parameters
+        Scanner console = new Scanner( System.in );
+            System.out.print( "Enter output file name: " );
+            String outFileName = console.next();
+        System.out.print( "Limit: " );
+            int limit = console.nextInt();
+    
+        //make all true array
+        boolean[] crossout = new boolean[limit-2]; 
+        for (int i=0; i<limit-2; i++)
+        {
+            crossout[i] = true;
+        }
+
+        //crossing out multiples
+        for(int p = 2; p<limit;p++)
+        {
+            System.out.println("p = " + p);
+            for(int c=2; c<limit; c++)
+            {    
+                if((c%p==0)&& !(c==p))
+                {
+                    crossout[c-2] = false;
+                    System.out.println("crossing out " + c);
+                }
+            }
+        }
+
+        //print p to the output file with a newline
+        File outFile = new File (outFileName);
+        PrintStream myStream = new PrintStream(outFile);
+        int p=2;
+        for(int i=0; i<limit-2; i++)
+        {
+            if(crossout[i]==true)
+            {
+                myStream.println(p);
+                //System.out.println(p);
+            }
+            p++;
+        }
+    }
+}

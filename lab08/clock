@@ -1,0 +1,81 @@
+public class Clock 
+{
+  private int hour, minute;
+  public Clock( int hour, int minute ) 
+  {
+    this.hour = hour;
+    this.minute = minute;
+  }
+
+  public int getHour() throws IllegalArgumentException
+  {    
+    if (hour<0 || hour>=24) throw new IllegalArgumentException("Invalid hour");
+    return hour;
+  }
+
+  public int getMinute() throws IllegalArgumentException
+  {
+    if ((minute<0) || (minute>=60)) throw new IllegalArgumentException("Invalid minute");
+      return minute;
+  } 
+
+  public int compareTo( Clock o ) 
+  {
+    if(this.hour>o.hour)
+    {
+        return 1;        
+    }
+    if (this.hour==o.hour)
+    {    
+        if(this.minute > o.hour)
+        {
+            return 1;
+        }
+        if(this.minute < o.hour)
+        {
+            return -1;
+        }
+        if(this.minute == o.hour)
+        {
+            return 0;
+        }
+    }
+    if (this.hour<o.hour)
+    {
+        return -1;        
+    }
+    else return 2;
+  }
+
+  public void plus( Clock o ) 
+  {
+    this.hour += o.hour;
+    this.minute += o.minute;
+    if(this.minute >= 60)
+    {
+        this.hour += 1;
+        this.minute -= 60;
+        if(this.hour>=24)
+        {
+            this.hour -= 24;
+        }
+        
+    }
+  }
+
+  public void minus( Clock o ) 
+  {
+    this.hour -= o.hour;
+    this.minute -= o.minute;
+    if(this.minute <0)
+    {
+        this.hour -= 1;
+        this.minute += 60;
+        if(this.hour<0)
+        {
+            this.hour += 24;
+        }
+        
+    }
+  }
+}

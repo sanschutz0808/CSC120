@@ -1,0 +1,70 @@
+import java.util.*;
+
+public class SplitGifts 
+{
+    public static int find(String[] nameArray, String name) 
+    {
+        for (int i=0; i<nameArray.length; i++)
+        {
+            if(nameArray[i].equals(name))
+            {
+                return i;
+            }
+        }
+        return -1;    
+    }
+
+    public static void main(String[] args) 
+    {
+            Scanner keyboard = new Scanner(System.in);
+            String[] gifts = new String[0];
+           String[] giftsRevised;
+            int[] counts = new int[0];
+            int[] countsRevised;
+            String name;
+            int position;
+            do 
+        {
+                  System.out.println("Enter the name of a gift (\"0\" to quit): ");
+                  name = keyboard.nextLine();
+                  if (!name.startsWith("0")) 
+            {
+                position = find(gifts, name);
+                if(position >= 0) 
+                {
+                    counts[position]++;
+                }
+                    else
+                {
+                    giftsRevised = new String[gifts.length+1];
+                    countsRevised = new int[counts.length+1];
+                    for(int i = 0; i<gifts.length; i++)
+                    {
+                        giftsRevised[i] = gifts[i];
+                        countsRevised[i] = counts[i];
+                    }
+                    giftsRevised[giftsRevised.length-1] = name;
+                    countsRevised[countsRevised.length-1] = 1;
+                    gifts = giftsRevised;
+                    counts = countsRevised;
+                }
+                } 
+        }while (!name.startsWith("0"));
+            for (int index = 0; index < gifts.length; index ++) 
+        {
+                  if (counts[index] >= 2) 
+            {
+                    System.out.printf("Each twin gets %d %s.%n",
+                     counts[index]/2, gifts[index]);
+                  }
+            }    
+            for (int index = 0; index < gifts.length; index ++) 
+        {
+                  if (counts[index] % 2==1) 
+            {
+                    System.out.printf("Huey gets %s.%n",gifts[index]);
+                  }
+            }
+      }
+}
+

@@ -1,0 +1,67 @@
+import java.util.*;
+import java.io.*;
+
+public class CharacterShift 
+{
+
+    public static char convert(char myChar, int k)
+    {
+        if(Character.isLowerCase(myChar))
+        {
+            return (char)( 'a' + ( myChar - 'a' + k ) % 26 );
+        }
+        if(Character.isUpperCase(myChar))
+        {
+            return (char)( 'a' + ( myChar - 'A' + k ) % 26 );
+        }
+        return myChar;
+    }
+
+
+
+    public static void main( String[] args) throws FileNotFoundException 
+    {
+        Scanner console = new Scanner( System.in );
+
+        System.out.print( "Enter input file name: " );
+        String inFileName = console.next();
+        File inFile = new File( inFileName );
+        if(!inFile.exists())
+        {
+            throw new IllegalArgumentException("File does not exists");
+        }    
+
+        System.out.print( "Enter output file name: " );
+        String outFileName = console.next();
+        File outFile = new File( outFileName );
+
+        if(inFile.getAbsolutePath().equals(outFile.getAbsolutePath()))
+        {
+            throw new IllegalArgumentException("File names are the same");
+        }
+
+
+
+        System.out.print( "Enter shift value: " );
+        int k = console.nextInt();
+        if (k<0)
+        {
+            throw new IllegalArgumentException("Shift can not be negative");
+        }
+
+        Scanner in = new Scanner(inFile);
+        PrintStream out = new PrintStream(outFile);
+        while(in.hasNext())
+        {
+            String inLine = in.nextLine();
+            String outLine = "";
+            for(int i=0; i<inLine.length();i++)
+            {
+                outLine+= convert(inLine.charAt(i), k);
+            }
+            out.println(outLine);
+        }
+  
+    }
+}
+

@@ -1,0 +1,74 @@
+import java.util.*;
+
+public class FuelEconomy 
+{
+    public static void main(String[] args)
+    {
+        int nCars, count;
+        Scanner keyboard = new Scanner(System.in);
+        double bestMpg1 = 0.0, bestMpg2 = 0.0;
+        String bestMake1 = "", bestMake2 = "";
+        String bestModel1 = "", bestModel2 = "";
+        double mpg, miles, gas;
+        String make, model;
+            int advance;
+        System.out.print("Enter the number of cars: ");
+        nCars = keyboard.nextInt();
+        for(int i=1; i<=nCars; i += advance)
+        {
+            advance =1;
+            System.out.print("Enter make for car " + i+ ": ");
+            make = keyboard.next();
+            System.out.print("Enter model for car " + i + ": ");
+            model = keyboard.next();
+            System.out.print("Enter start odometer value for car " + i +": ");
+            double startmiles = keyboard.nextDouble();
+            System.out.print("Enter end odometer value for car " + i +": ");
+            double endmiles = keyboard.nextDouble();
+            System.out.print("Enter gas for car " + i +": ");
+            gas = keyboard.nextDouble();
+            System.out.println("The MPG is " + ((endmiles-startmiles)/(gas)));
+            System.out.print("Approve? ");
+            String response = "";
+            response = keyboard.next();
+
+            if (response.startsWith("y")||response.startsWith("Y"))
+            {
+                advance = 1;
+                double currentMpg = (endmiles-startmiles)/(gas);
+                String currentMake = make;
+                String currentModel = model;
+    
+                if (bestMpg2 < currentMpg )
+                {    
+                    bestMpg2 = currentMpg;
+                    bestModel2 = currentModel;
+                    bestMake2 = currentMake;
+                
+                }
+                if (bestMpg2 > bestMpg1)
+                {
+                    double temp = bestMpg1;
+                    bestMpg1 = bestMpg2;
+                    bestMpg2 = temp;
+
+                    String temp2 = bestMake1;
+                    bestMake1 = bestMake2;
+                    bestMake2 = temp2;
+
+                    temp2 = bestModel1;
+                    bestModel1 = bestModel2;
+                    bestModel2 = temp2;
+                }
+            }
+            else if (response.startsWith("n")||response.startsWith("N"))
+            {
+                advance = 0;
+            }    
+        }
+        System.out.println("The 1st: Make=" + bestMake1 + ", Model=" + bestModel1 + ", MPG=" + bestMpg1);
+        System.out.println("The 2nd: Make=" + bestMake2 + ", Model=" + bestModel2 + ", MPG=" + bestMpg2);
+
+    }
+}
+

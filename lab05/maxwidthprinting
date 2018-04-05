@@ -1,0 +1,61 @@
+import java.util.*;
+import java.io.*;
+
+public class MaxWidthPrinting 
+{
+    public static void main( String[] args )throws FileNotFoundException 
+    {
+        Scanner console = new Scanner( System.in );
+        System.out.print("Enter a width value: ");
+            int width = console.nextInt();
+            
+        System.out.print("Enter a file name: ");
+        String inputFileName = console.next();
+            File inputFile = new File( inputFileName );
+        Scanner fileScanner= new Scanner(inputFile);
+
+            int currentLength = 0;
+
+        while ( fileScanner.hasNext() ) 
+        {
+              
+            String word = fileScanner.next();
+            int wordLength = word.length();
+                  //--- calculate the length after adding the word at hand
+            int updatedLength = currentLength;
+                 if(currentLength == 0 && wordLength < width)
+            {
+                System.out.print(word);
+                currentLength = wordLength;
+            }
+            else if(currentLength == 0 && wordLength >= width)
+            {
+                System.out.println();
+                System.out.println(word);
+            }
+            else if(currentLength > 0 && wordLength >= width)
+            {
+                System.out.println();
+                System.out.println(word);
+                currentLength=0;
+            }
+            else if((currentLength > 0 && wordLength < width) && (width -                     currentLength < wordLength) )
+            {
+                System.out.println();
+                System.out.print(word);    
+                currentLength=wordLength;    
+            }
+            else if(( currentLength > 0 && wordLength < width) && (width -                     currentLength > wordLength) )
+            {
+                System.out.print(" "); 
+                System.out.print(word);
+                currentLength = currentLength + 1 + wordLength;
+            }
+        }
+            if ( currentLength > 0 ) 
+        {
+                  System.out.println();
+            }
+      }
+}
+
